@@ -2,18 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Header = () => {
-    return(
+const Header = () =>
+{
+
+    const isLoggedIn = localStorage.getItem("token");
+    console.log("isLoggedIn", isLoggedIn);
+
+    return (
         <HeaderStyle>
             <p>Blogger Pro</p>
             <MenuStyle>
-                <li><Link to="/">Login</Link></li>
-                <li><Link to="view">View</Link></li>
-                <li><Link to="logout">Logout</Link></li>
+                {!isLoggedIn && <li><Link to="/">Login</Link></li>}
+                {isLoggedIn && <li><Link to="/view">View</Link></li>}
+                {isLoggedIn && <li><Link to="/logout">Logout</Link></li>}
             </MenuStyle>
         </HeaderStyle>
     );
-}
+};
 
 export default Header;
 
@@ -28,7 +33,7 @@ const HeaderStyle = styled.div`
         font-weight: bold;
         font-size: 1.5em;
     }
-`
+`;
 
 const MenuStyle = styled.ul`
   li {
@@ -41,4 +46,4 @@ const MenuStyle = styled.ul`
             font-size: 1em;
         }
     }
-`
+`;
